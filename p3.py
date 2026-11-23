@@ -113,12 +113,23 @@ def main():
     fig.suptitle("PC1-PC2 projection under three preprocessing variants")
     save_fig(fig, "p3_projections.png")
     
+    # discussion
+
+    rep.header("Discussion")
+    rep("(i) V1 does no scaling, so tr(S) is just the sum of the raw feature variances, and")
+    rep("proline alone (s^2 = 94906.7109) makes up 99.73% of it. So r1 is at least proline's")
+    rep("share, which gives r1 = 0.9978 with PC1 basically pointing along proline, while V3 works")
+    rep("on the correlation matrix where every feature has variance 1, and gets r1 = 0.3573.")
+    rep("(ii) V1 keeps 99.98% of the variance in two components but gives the worst 5-NN")
+    rep("accuracy, 0.7222, against 0.9444 for V3 and 0.9815 for V2: its projection separates")
+    rep("class 0 (high proline) while classes 1 and 2 overlap. Variance captured depends on the")
+    rep("units the features are measured in, so a high value does not mean the components carry")
+    rep("class-relevant structure. (iii) I would use V3 (z-score), because PCA on the correlation")
+    rep("matrix does not depend on measurement units and weights every feature equally. V2 scored")
+    rep("slightly higher here, but the gap is only two test samples out of 54, and min-max scaling")
+    rep("depends on the single most extreme training values, which makes it sensitive to outliers.")
+
     rep.save()
     
 if __name__ == "__main__":
     main()
-
-
-
-    
-    

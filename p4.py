@@ -185,6 +185,24 @@ def main():
     ax.legend(loc="lower right")
     save_fig(fig, "p4_accuracy_vs_k.png")
     
+    # discussion
+
+    rep.header("Discussion")
+    rep("(i) The baseline is 0.9815 (53 of 54 correct), so the threshold is 0.9630: PCA reaches")
+    rep("it at k = 3, the F-score filter at k = 5, and SFS only at k = 8. (ii) If the label-aware")
+    rep("methods made good use of the labels, they should beat PCA at small k, but the plot shows")
+    rep("the opposite: label-blind PCA is at or above both at every k, e.g. 0.9815 vs 0.9074")
+    rep("(F-score) and 0.8704 (SFS) at k = 3. This matches P3, where the high-variance directions")
+    rep("of the z-scored data happened to line up with class separation, which is a property of")
+    rep("this dataset and not something PCA guarantees in general. SFS, which uses the labels most")
+    rep("directly, does worst: it maximises CV accuracy on only 124 training points, so its picks")
+    rep("fit noise in the folds, as the drop from 0.8889 at k = 2 to 0.8704 at k = 3 suggests.")
+    rep("(iii) One test sample is worth 1/54 = 0.0185, and the binomial standard error at about")
+    rep("95% accuracy is sqrt(0.95 * 0.05 / 54) = 0.030, so gaps of one or two samples, like PCA")
+    rep("vs F-score at k = 5 and k = 8, are within noise. Only the big gaps at small k, such as the")
+    rep("6-sample difference between PCA and SFS at k = 3, give a ranking I would trust, and even")
+    rep("those come from a single fixed train/test split.")
+
     rep.save()
 
 
@@ -199,8 +217,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-

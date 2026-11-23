@@ -162,21 +162,21 @@ def main() -> None:
     ax.legend()
     save_fig(fig, "p2_reconstruction_error.png")
     
+    # discussion
+
+    rep.header("Discussion")
+    rep("(i) The elbow rule gives k_elbow = 3, the same as the Kaiser count (lambda 1-3 = 4.6450,")
+    rep("2.4972, 1.4309 are above 1, while lambda 4 = 0.9426 is not), but it is well below")
+    rep("k_0.80 = 5, k_0.90 = 7 and k_0.95 = 10. Since R(3) = 0.6595, the elbow keeps the three")
+    rep("main directions but drops about a third of the total variance, so it is a compact")
+    rep("summary rather than an accurate reconstruction. (ii) Yes, J_test(k) is non-increasing:")
+    rep("for any point z, train or test, ||z - z_hat||^2 = sum over j > k of (u_j^T z)^2, so going")
+    rep("from k to k+1 removes the term (u_(k+1)^T z)^2, which is never negative, so each point's")
+    rep("error can only stay the same or drop, and so can their sum. The plot agrees: J_test falls")
+    rep("steadily from 8.5455 at k = 1 to 0 at k = 13 and stays slightly above J_train for every")
+    rep("k < 13, because U was fitted on the training data.")
+
     rep.save()
 
 if __name__ == "__main__":
     main()
-    
-    
-    
-
-
-
-
-    
-
-
-
-
-
-

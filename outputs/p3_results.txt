@@ -11,3 +11,18 @@ V1: three features with largest raw sample variance
 proline                        s^2 = 94906.7109   (share of tr(S) = 0.9973)
 magnesium                      s^2 = 232.0715   (share of tr(S) = 0.0024)
 alcalinity_of_ash              s^2 = 11.4713   (share of tr(S) = 0.0001)
+
+Discussion
+----------
+(i) V1 does no scaling, so tr(S) is just the sum of the raw feature variances, and
+proline alone (s^2 = 94906.7109) makes up 99.73% of it. So r1 is at least proline's
+share, which gives r1 = 0.9978 with PC1 basically pointing along proline, while V3 works
+on the correlation matrix where every feature has variance 1, and gets r1 = 0.3573.
+(ii) V1 keeps 99.98% of the variance in two components but gives the worst 5-NN
+accuracy, 0.7222, against 0.9444 for V3 and 0.9815 for V2: its projection separates
+class 0 (high proline) while classes 1 and 2 overlap. Variance captured depends on the
+units the features are measured in, so a high value does not mean the components carry
+class-relevant structure. (iii) I would use V3 (z-score), because PCA on the correlation
+matrix does not depend on measurement units and weights every feature equally. V2 scored
+slightly higher here, but the gap is only two test samples out of 54, and min-max scaling
+depends on the single most extreme training values, which makes it sensitive to outliers.

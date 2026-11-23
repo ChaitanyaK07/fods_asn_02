@@ -55,3 +55,20 @@ k=8
   (B) F-score: flavanoids, proline, od280/od315_of_diluted_wines, alcohol, color_intensity, hue, total_phenols, alcalinity_of_ash
   (C) SFS    : flavanoids, alcohol, alcalinity_of_ash, proanthocyanins, magnesium, ash, hue, proline
   shared     : 5  -> alcohol, alcalinity_of_ash, flavanoids, hue, proline
+
+Discussion
+----------
+(i) The baseline is 0.9815 (53 of 54 correct), so the threshold is 0.9630: PCA reaches
+it at k = 3, the F-score filter at k = 5, and SFS only at k = 8. (ii) If the label-aware
+methods made good use of the labels, they should beat PCA at small k, but the plot shows
+the opposite: label-blind PCA is at or above both at every k, e.g. 0.9815 vs 0.9074
+(F-score) and 0.8704 (SFS) at k = 3. This matches P3, where the high-variance directions
+of the z-scored data happened to line up with class separation, which is a property of
+this dataset and not something PCA guarantees in general. SFS, which uses the labels most
+directly, does worst: it maximises CV accuracy on only 124 training points, so its picks
+fit noise in the folds, as the drop from 0.8889 at k = 2 to 0.8704 at k = 3 suggests.
+(iii) One test sample is worth 1/54 = 0.0185, and the binomial standard error at about
+95% accuracy is sqrt(0.95 * 0.05 / 54) = 0.030, so gaps of one or two samples, like PCA
+vs F-score at k = 5 and k = 8, are within noise. Only the big gaps at small k, such as the
+6-sample difference between PCA and SFS at k = 3, give a ranking I would trust, and even
+those come from a single fixed train/test split.
