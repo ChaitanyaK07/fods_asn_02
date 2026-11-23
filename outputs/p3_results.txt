@@ -1,0 +1,13 @@
+
+Preprocessing comparison
+------------------------
+     variant     r1     r2  r1+r2 top PC1 feature  5-NN test acc
+V1 (centred) 0.9978 0.0021 0.9998         proline         0.7222
+V2 (min-max) 0.4271 0.1841 0.6113      flavanoids         0.9815
+V3 (z-score) 0.3573 0.1921 0.5494      flavanoids         0.9444
+
+V1: three features with largest raw sample variance
+---------------------------------------------------
+proline                        s^2 = 94906.7109   (share of tr(S) = 0.9973)
+magnesium                      s^2 = 232.0715   (share of tr(S) = 0.0024)
+alcalinity_of_ash              s^2 = 11.4713   (share of tr(S) = 0.0001)

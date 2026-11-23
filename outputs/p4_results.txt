@@ -1,0 +1,57 @@
+
+Baseline (all 13 standardised features)
+---------------------------------------
+test accuracy = 0.9815   (threshold baseline - 1/54 = 0.9630)
+
+F-score ranking (best first)
+----------------------------
+ 1. flavanoids                     F = 187.6858
+ 2. proline                        F = 149.4335
+ 3. od280/od315_of_diluted_wines   F = 126.6191
+ 4. alcohol                        F = 100.3464
+ 5. color_intensity                F = 83.9793
+ 6. hue                            F = 72.2673
+ 7. total_phenols                  F = 59.2558
+ 8. alcalinity_of_ash              F = 26.0528
+ 9. malic_acid                     F = 22.5828
+10. proanthocyanins                F = 19.9799
+11. nonflavanoid_phenols           F = 17.9053
+12. ash                            F = 11.5760
+13. magnesium                      F = 7.1124
+check vs sklearn f_classif: max |diff| = 1.1e-13  (AGREE)
+
+SFS selection order (own implementation)
+----------------------------------------
+flavanoids, alcohol, alcalinity_of_ash, proanthocyanins, magnesium, ash, hue, proline
+check vs sklearn SequentialFeatureSelector:
+  k=1: match
+  k=2: match
+  k=3: match
+  k=5: match
+  k=8: match
+
+Test accuracy by k
+------------------
+ k  (A) PCA  (B) F-score  (C) SFS
+ 1   0.8704       0.8519   0.8519
+ 2   0.9444       0.9074   0.8889
+ 3   0.9815       0.9074   0.8704
+ 5   1.0000       0.9815   0.9074
+ 8   0.9815       0.9815   0.9630
+
+Smallest k with accuracy >= baseline - 1/54
+-------------------------------------------
+(A) PCA     : 3
+(B) F-score : 5
+(C) SFS     : 8
+
+Selected features, (B) vs (C)
+-----------------------------
+k=3
+  (B) F-score: flavanoids, proline, od280/od315_of_diluted_wines
+  (C) SFS    : flavanoids, alcohol, alcalinity_of_ash
+  shared     : 1  -> flavanoids
+k=8
+  (B) F-score: flavanoids, proline, od280/od315_of_diluted_wines, alcohol, color_intensity, hue, total_phenols, alcalinity_of_ash
+  (C) SFS    : flavanoids, alcohol, alcalinity_of_ash, proanthocyanins, magnesium, ash, hue, proline
+  shared     : 5  -> alcohol, alcalinity_of_ash, flavanoids, hue, proline
